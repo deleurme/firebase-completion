@@ -9,58 +9,14 @@
 #
 _firebase() {
   local cur prev opts base breaks  
-  breaks=$COMP_WORDBREAKS
-  # COMP_WORDBREAKS="\"'><;|&("
+  _get_comp_words_by_ref -n : cur
+
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-	commands="deploy init open list delete-site login logout -h -v 
-    data:get data:set data:push data:remove data:update deploy:hosting deploy:rules 
-    disable:hosting login:ci prefs:token serve
-  "
+	commands="deploy init open list delete-site login logout -h -v data:get data:set data:push data:remove data:update deploy:hosting deploy:rules disable:hosting login:ci prefs:token serve help"
 
-  # bootstrap
-  #   Creates a new Firebase powered app from a prebuilt template to quickly
-  #   get a project up and running. This creates a new folder and prompts
-  #   you through all the required settings.
-  #
-  # deploy
-  #   Deploys the current app to Firebase Hosting and creates your subdomain on
-  #   firebaseapp.com if it doesn't already exist.
-  #
-  # init
-  #   Initializes an existing Firebase app in the current directory and prompts
-  #   you through configuring it for firebaseapp.com.
-  #
-  # open
-  #   Opens the URL of the current Firebase app in a browser.
-  #
-  # list
-  #   Lists the Firebases available to the currently logged in user.
-  #
-  # delete-site
-  #   Deletes the current app from Firebase Hosting and displays a
-  #   'Site not Found' page as if the site had never been deployed to.
-  #
-  # login
-  #   Logs you into Firebase. All commands that require login will prompt
-  #   you if you're not currently logged in.
-  #
-  # logout
-  #   Logs you out of Firebase.
-  #
-  # -h, --help
-  #   Shows this help screen. Use `firebase <command> --help` for more detailed
-  #   help instructions.
-  #
-  # -v, --version
-  #   Displays the current version.
-  #
-  # -s, --silent
-  #   Silent mode for scripting - commands will error with non-zero status code
-  #   instead of waiting for prompt if not enough information supplied.
-  #
 	case "${prev}" in
     init )
       args="-h --firebase --public -f -p " 
@@ -100,10 +56,8 @@ _firebase() {
 
 	esac
   
-  # firebase list-units |awk '{print $1}'|sed 1d
-
   COMPREPLY=($(compgen -W "${commands}" -- "${cur}"))
-  # COMP_WORDBREAKS=breaks
+  __ltrim_colon_completions "$cur"
   return 0
 }
 
