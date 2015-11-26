@@ -1,0 +1,106 @@
+# vim: ft=sh 
+# 
+#     _____           __                  
+#    / __(_)_______  / /_  ____ _________ 
+#   / /_/ / ___/ _ \/ __ \/ __ `/ ___/ _ \
+#  / __/ / /  /  __/ /_/ / /_/ (__  )  __/
+# /_/ /_/_/   \___/_.___/\__,_/____/\___/ 
+#                                         
+#
+_firebase() {
+  local cur prev opts base
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+	commands="bootstrap deploy init open list delete-site login logout -h -v "
+
+  # bootstrap
+  #   Creates a new Firebase powered app from a prebuilt template to quickly
+  #   get a project up and running. This creates a new folder and prompts
+  #   you through all the required settings.
+  #
+  # deploy
+  #   Deploys the current app to Firebase Hosting and creates your subdomain on
+  #   firebaseapp.com if it doesn't already exist.
+  #
+  # init
+  #   Initializes an existing Firebase app in the current directory and prompts
+  #   you through configuring it for firebaseapp.com.
+  #
+  # open
+  #   Opens the URL of the current Firebase app in a browser.
+  #
+  # list
+  #   Lists the Firebases available to the currently logged in user.
+  #
+  # delete-site
+  #   Deletes the current app from Firebase Hosting and displays a
+  #   'Site not Found' page as if the site had never been deployed to.
+  #
+  # login
+  #   Logs you into Firebase. All commands that require login will prompt
+  #   you if you're not currently logged in.
+  #
+  # logout
+  #   Logs you out of Firebase.
+  #
+  # -h, --help
+  #   Shows this help screen. Use `firebase <command> --help` for more detailed
+  #   help instructions.
+  #
+  # -v, --version
+  #   Displays the current version.
+  #
+  # -s, --silent
+  #   Silent mode for scripting - commands will error with non-zero status code
+  #   instead of waiting for prompt if not enough information supplied.
+  #
+	case "${prev}" in
+    init )
+      args="-h --firebase --public -f -p " 
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
+    deploy )
+      args="--help -m --message -f --firebase"
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
+    delete-site ) 
+      args="--help -h --firebase -f --message -m" 
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
+    login )
+      args="--help --email --password" 
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
+    logout )
+      args="--help -h -d " 
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
+    
+    -f|--firebase)
+      args=$(firebase list |egrep -v ^[-Y])
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
+	esac
+  
+  # firebase list-units |awk '{print $1}'|sed 1d
+
+  COMPREPLY=($(compgen -W "${commands}" -- "${cur}"))
+  return 0
+}
+
+complete -F _firebase firebase
+
