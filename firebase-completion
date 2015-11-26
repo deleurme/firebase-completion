@@ -8,12 +8,17 @@
 #                                         
 #
 _firebase() {
-  local cur prev opts base
+  local cur prev opts base breaks  
+  breaks=$COMP_WORDBREAKS
+  # COMP_WORDBREAKS="\"'><;|&("
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-	commands="bootstrap deploy init open list delete-site login logout -h -v "
+	commands="deploy init open list delete-site login logout -h -v 
+    data:get data:set data:push data:remove data:update deploy:hosting deploy:rules 
+    disable:hosting login:ci prefs:token serve
+  "
 
   # bootstrap
   #   Creates a new Firebase powered app from a prebuilt template to quickly
@@ -88,7 +93,7 @@ _firebase() {
       ;;
     
     -f|--firebase)
-      args=$(firebase list |egrep -v ^[-Y])
+      args=$(firebase list|awk '{if(NR>2) {print $2}}'|grep -v '^$')
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
       ;;
@@ -98,6 +103,7 @@ _firebase() {
   # firebase list-units |awk '{print $1}'|sed 1d
 
   COMPREPLY=($(compgen -W "${commands}" -- "${cur}"))
+  # COMP_WORDBREAKS=breaks
   return 0
 }
 
