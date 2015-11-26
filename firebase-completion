@@ -86,7 +86,6 @@ _firebase() {
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
       ;;
-
     
     -f|--firebase)
       args=$(firebase list |egrep -v ^[-Y])
