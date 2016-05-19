@@ -15,7 +15,7 @@ _firebase() {
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-	commands="deploy init open list delete-site login logout -h -v data:get data:set data:push data:remove data:update deploy:hosting deploy:rules disable:hosting login:ci prefs:token serve help"
+	commands="deploy init open list login logout -h -v database:get database:set database:push database:remove database:update deploy deploy:hosting deploy:rules hosting:disable login:ci serve help"
 
 	case "${prev}" in
     init )
@@ -36,14 +36,44 @@ _firebase() {
       return 0
       ;;
 
+    open)
+      args="--help -h" 
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
     login )
       args="--help --email --password" 
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
       ;;
 
+    use)
+      args="--help -h --add --alias --unalias --clear " 
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+    
     logout )
       args="--help -h -d " 
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+    
+    --deploy)
+      args="hosting storage"
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+    
+    --project)
+      args=$(firebase list|awk '{if(NR>2) {print $2}}'|grep -v '^$')
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+    
+    database:* )
+      args="--project" 
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
       ;;
