@@ -19,13 +19,13 @@ _firebase() {
 
 	case "${prev}" in
     init )
-      args="-h --firebase --public -f -p " 
+      args="-h --help " 
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
       ;;
 
     deploy )
-      args="--help -m --message -f --firebase"
+      args="--help -h -m --message -p --public --only"
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
       ;;
