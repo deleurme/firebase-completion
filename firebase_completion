@@ -121,7 +121,7 @@ _firebase() {
       return 0
       ;;
     
-    --project|-P)
+    --project|-P|--alias|--unalias)
       args=$(firebase list|awk '{if(NR>2) {print $2}}'|grep -v '^$')
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
