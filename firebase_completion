@@ -17,37 +17,6 @@ _firebase() {
 
 	commands="use -P --token --project -j --json tools:migrate --debug --interactive --non-interactive deploy init open list login logout -h -v database:get database:set database:push database:remove database:update deploy deploy:hosting deploy:rules hosting:disable login:ci serve help"
 
-  # Commands:
-  #
-  #   database:get [options] <path>              fetch and print JSON data at the specified path
-  #   database:push [options] <path> [infile]    add a new JSON object to a list of data in your Firebase
-  #   database:set [options] <path> [infile]     store JSON data at the specified path via STDIN, arg, or file
-  #   database:remove [options] <path>           remove data from your Firebase at the specified path
-  #   database:update [options] <path> [infile]  update some of the keys for the defined path in your Firebase
-  #   deploy [options]                           deploy code and assets to your Firebase project
-  #   hosting:disable [options]                  stop serving web traffic to your Firebase Hosting site
-  #   help [command]                             display help information
-  #   init [feature]                             setup a Firebase project in the current directory
-  #   list                                       list the Firebases to which you have access
-  #   login [options]                            log the CLI into Firebase
-  #   login:ci [options]                         generate an access token for use in non-interactive environments
-  #   logout                                     log the CLI out of Firebase
-  #   open [link]                                quickly open a browser to relevant project resources
-  #   serve [options]                            start a local server for your static assets
-  #   tools:migrate [options]                    ensure your firebase.json format is up to date
-  #   use [options] [alias_or_project_id]        set an active Firebase project for your working directory
-  #
-  # Options:
-  #
-  #   -h, --help                           output usage information
-  #   -V, --version                        output the version number
-  #   -P, --project <alias_or_project_id>  the Firebase project to use for this command
-  #   -j, --json                           output JSON instead of text, also triggers non-interactive mode
-  #   --token <token>                      supply an auth token for this command
-  #   --non-interactive                    error out of the command instead of waiting for prompts
-  #   --interactive                        force interactive shell treatment even when not detected
-  #   --debug                              print verbose debug output and keep a debug log file
-
 	case "${prev}" in
     init )
       args="-h --help " 
