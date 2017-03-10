@@ -7,6 +7,12 @@
 # /_/ /_/_/   \___/_.___/\__,_/____/\___/ 
 #                                         
 #
+#  functions:log [options]                    read logs from deployed functions
+#  functions:config:clone [options]           clone environment config from another project
+#  functions:config:get [path]                fetch environment config stored at the given path
+#  functions:config:set [values...]           set environment config with key=value syntax
+#  functions:config:unset [keys...]           unset environment config at the specified path(s)
+#                      
 _firebase() {
   local cur prev opts base breaks  
   _get_comp_words_by_ref -n : cur
@@ -15,7 +21,7 @@ _firebase() {
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-	commands="use -P --token --project -j --json tools:migrate --debug --interactive --non-interactive deploy init open list login logout -h -v database:get database:set database:push database:remove database:update deploy deploy:hosting deploy:rules hosting:disable login:ci serve help"
+	commands="use -P --token --project -j --json tools:migrate --debug --interactive --non-interactive deploy init open list login logout -h -v database:get database:set database:push database:remove database:update deploy deploy:hosting deploy:rules hosting:disable login:ci serve help functions:log functions:config:clone functions:config:get functions:config:set functions:config:unset" 
 
 	case "${prev}" in
     init )
