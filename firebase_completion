@@ -36,6 +36,12 @@ _firebase() {
       return 0
       ;;
 
+    functions:log)
+      args="--help -h -only --lines -n --open"
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
     tools:migrate)
       args="--help -h -y --confirm"
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
