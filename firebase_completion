@@ -21,7 +21,7 @@ _firebase() {
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-	commands="use -P --token --project -j --json tools:migrate --debug --interactive --non-interactive deploy init open list login logout -h -v database:get database:set database:push database:remove database:update database:profile deploy deploy:hosting deploy:rules hosting:disable login:ci serve help functions:log functions:config:clone functions:config:get functions:config:set functions:config:unset auth:import auth:export" 
+	commands="use -P --token --project -j --json tools:migrate --debug --interactive --non-interactive deploy init open list login logout -h -v database:get database:set database:push database:remove database:update database:profile deploy deploy:hosting deploy:rules hosting:disable login:ci serve help functions:log functions:config:clone functions:config:get functions:config:set functions:config:unset auth:import auth:export setup:web" 
 
 	case "${prev}" in
     init )
