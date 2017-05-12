@@ -7,11 +7,6 @@
 # /_/ /_/_/   \___/_.___/\__,_/____/\___/ 
 #                                         
 #
-#  functions:log [options]                    read logs from deployed functions
-#  functions:config:clone [options]           clone environment config from another project
-#  functions:config:get [path]                fetch environment config stored at the given path
-#  functions:config:set [values...]           set environment config with key=value syntax
-#  functions:config:unset [keys...]           unset environment config at the specified path(s)
 #                      
 _firebase() {
   local cur prev opts base breaks  
@@ -115,7 +110,7 @@ _firebase() {
       ;;
     
     --project|-P|--alias|--unalias)
-      args=$(firebase list|awk '{if(NR>2) {print $2}}'|grep -v '^$')
+      args=$(firebase list -j|jq .result[].id)
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
       ;;
