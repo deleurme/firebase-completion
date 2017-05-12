@@ -21,7 +21,7 @@ _firebase() {
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-	commands="use -P --token --project -j --json tools:migrate --debug --interactive --non-interactive deploy init open list login logout -h -v database:get database:set database:push database:remove database:update deploy deploy:hosting deploy:rules hosting:disable login:ci serve help functions:log functions:config:clone functions:config:get functions:config:set functions:config:unset" 
+	commands="use -P --token --project -j --json tools:migrate --debug --interactive --non-interactive deploy init open list login logout -h -v database:get database:set database:push database:remove database:update deploy deploy:hosting deploy:rules hosting:disable login:ci serve help functions:log functions:config:clone functions:config:get functions:config:set functions:config:unset auth:import auth:export" 
 
 	case "${prev}" in
     init )
@@ -32,6 +32,18 @@ _firebase() {
 
     --token)
       args="--help -h -y"
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
+    auth:import)
+      args="--help -h --hash-algo --hash-key --salt-separator --rounds --mem-cost"
+      COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
+      return 0
+      ;;
+
+    auth:export)
+      args="--help -h --format"
       COMPREPLY=( $(compgen -W "${args}" -- "${cur}") )
       return 0
       ;;
